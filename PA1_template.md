@@ -66,7 +66,7 @@ sprintf("Max Interval is %i", maxInt)
 ```
 
 ## Imputing missing values
-Impute by median of the interval
+Impute by mean of the interval
 
 ```r
 sumNa <- sum(is.na(file$steps))
