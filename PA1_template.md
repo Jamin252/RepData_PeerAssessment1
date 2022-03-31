@@ -66,6 +66,7 @@ sprintf("Max Interval is %i", maxInt)
 ```
 
 ## Imputing missing values
+Impute by median of the interval
 
 ```r
 sumNa <- sum(is.na(file$steps))
@@ -77,19 +78,15 @@ sprintf("Sum of row with NA is %i", sumNa)
 ```
 
 ```r
-fileNoNa <- file %>% group_by(date) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
+fileNoNa <- file %>% group_by(interval) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
 
-temp1 <- fileNoNa %>% summarise(total = sum(steps))
+temp1 <- fileNoNa %>% summarise(total = sum(newsteps))
 
 qplot(total, data = temp1)
 ```
 
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-```
-## Warning: Removed 8 rows containing non-finite values (stat_bin).
 ```
 
 ![](PA1_template_files/figure-html/input-1.png)<!-- -->
@@ -99,7 +96,7 @@ sprintf("Mean: %f", mean(temp1$total,na.rm = TRUE))
 ```
 
 ```
-## [1] "Mean: 10766.188679"
+## [1] "Mean: 2280.338574"
 ```
 
 ```r
@@ -107,7 +104,7 @@ sprintf("Median: %f", median(temp1$total, na.rm = TRUE))
 ```
 
 ```
-## [1] "Median: 10765.000000"
+## [1] "Median: 2080.905660"
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
