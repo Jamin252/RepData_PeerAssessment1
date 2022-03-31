@@ -50,7 +50,7 @@ Impute by median of the date
 sumNa <- sum(is.na(file$steps))
 sprintf("Sum of row with NA is %i", sumNa)
 
-fileNoNa <- file %>% group_by(date) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
+fileNoNa <- file %>% group_by(interval) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
 
 temp1 <- fileNoNa %>% summarise(total = sum(steps))
 
