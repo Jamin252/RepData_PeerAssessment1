@@ -52,7 +52,7 @@ sprintf("Sum of row with NA is %i", sumNa)
 
 fileNoNa <- file %>% group_by(interval) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
 
-temp1 <- fileNoNa %>% summarise(total = sum(newsteps))
+temp1 <- fileNoNa %>% ungroup()%>% group_by(date) %>% summarise(total = sum(newsteps)) %>% mutate(date = as.Date(date))
 
 qplot(total, data = temp1)
 

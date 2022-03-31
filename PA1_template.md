@@ -80,7 +80,7 @@ sprintf("Sum of row with NA is %i", sumNa)
 ```r
 fileNoNa <- file %>% group_by(interval) %>% mutate(newsteps = ifelse(is.na(steps),mean(steps,na.rm = TRUE),steps))
 
-temp1 <- fileNoNa %>% summarise(total = sum(newsteps))
+temp1 <- fileNoNa %>% ungroup()%>% group_by(date) %>% summarise(total = sum(newsteps)) %>% mutate(date = as.Date(date))
 
 qplot(total, data = temp1)
 ```
@@ -96,7 +96,7 @@ sprintf("Mean: %f", mean(temp1$total,na.rm = TRUE))
 ```
 
 ```
-## [1] "Mean: 2280.338574"
+## [1] "Mean: 10766.188679"
 ```
 
 ```r
@@ -104,7 +104,7 @@ sprintf("Median: %f", median(temp1$total, na.rm = TRUE))
 ```
 
 ```
-## [1] "Median: 2080.905660"
+## [1] "Median: 10766.188679"
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
